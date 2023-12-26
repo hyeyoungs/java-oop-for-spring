@@ -7,7 +7,6 @@
 <br>
 → 자바 개발 도구인 JDK를 이용해 개발된 프로그램은 JRE에 의해 가상의 컴퓨터인 JVM 상에서 구동된다.       
   (Write Once Run Anywhere)    
-
 <br>
 
 ## 프로그램과 메모리
