@@ -114,14 +114,34 @@
 
 <br><br>
 
-## 추상화, 상속, 다형성 코드에 대해서 T 메모리(= 데이터 저장 영역)에 어떻게 저장되는지?
+## 추상화, 상속, 다형성 코드에 대해서 Runtime Data 영역에 어떻게 저장되는지?
 ### 추상화와 Runtime Data 영역의 메모리
-- java.lang 패키지와 모든 클래스들이 JVM의 Runtime Data 영역 중 Static 영역(= Method 영역)에 배치된다.
-- Static 영역의 Class에는 객체에 속한 속성에 대한 저장 공간이 안 보이고 그저 이름만 존재한다.
-  - 객체에 속한 속성은 객체가 생성돼야만 속성의 값을 저장하기 위한 메모리 공간이 Heap 영역에 할당된다. 
+``` Java
+public class Mouse {
+    public String name;
+    public void sing() { }
+}
+```
+[Mouse.java]
 
 ``` Java
-Mouse mickey = new Mouse()
+public class MouseDriver {
+    public static void main(String [] args){
+        Mouse mickey = new Mouse();
+        mickey.name = "미키";
+        mickey = null;
+    }
+}
+```
+[MouseDriver.java]
+
+
+- java.lang 패키지와 모든 클래스들이 JVM의 Runtime Data 영역 중 Static 영역(= Method 영역)에 배치된다.
+- Static 영역의 Class에는 객체에 속한 속성에 대한 저장 공간이 안 보이고 그저 이름만 존재한다.
+  - 객체에 속한 속성은 객체가 생성돼야만 속성의 값을 저장하기 위한 메모리 공간이 Static 영역이 아닌 Heap 영역에 할당된다. 
+
+``` Java
+Mouse mickey = new Mouse();
 
 Mouse mickey // Mouse 객체에 대한 참조변수 mickey를 만든다.
 new Mouse() // Mosue 클래스의 인스턴스를 하나 만들어 힙에 배치한다.
@@ -136,7 +156,7 @@ new Mouse() // Mosue 클래스의 인스턴스를 하나 만들어 힙에 배치
 같은 클래스(유형)의 모든 객체가 같은 값을 가지고 있다면 그 값은 클래스에 저장해보자.       
 → static 키워드를 속성 앞에 붙이면 된다. → 해당 속성은 스태틱 영역에 단 하나의 저장 공간을 갖게 된다.        
 
-- static 속성 : Runtime Data 영역의 스태틱(=Method) 영역에 클래스가 배치될 때 클래스 내부에 메모리 공간이 확보된다.
+- static 속성 : Runtime Data 영역의 Static 영역에 클래스가 배치될 때 클래스 내부에 메모리 공간이 확보된다.
 - 객체 속성 : 속성 명만 클래스 내부에 있고. 힙 영역에 객체가 생성되면 그때 각 객체 안에 멤버 속성을 위한 메모리 공간이 할당 된다.
 
 공유 변수는 지역 변수와 다르게 초기화한다. 이는 초기화의 주체가 명확하지 않기 때문이다.
@@ -146,6 +166,10 @@ new Mouse() // Mosue 클래스의 인스턴스를 하나 만들어 힙에 배치
 ### 상속과 Runtime Data 영역의 메모리
 - 하위 클래스의 인스턴스가 생성될 때 상위 클래스의 인스턴스도 함께 생성된다.
 
+<br>
+
+### 다형성과 Runtime Data 영역의 메모리
+- 상위 클래스 타입의 객체 참조 변수를 사용하더라도 하위 클래스에서 오버라이딩(재정의)한 메서드가 호출된다.
 
 <br>
 
